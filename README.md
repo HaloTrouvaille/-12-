@@ -21,3 +21,19 @@
 (4)编写Makefile管理应用程序并运行，结果见实验结果分析部分  
 (5)实验通过autotools自动生成Makefile，并完成常用的make操作，结果见实验结果分析部分 
 ### 实验结果分析
+(1)gcc编译后生成可执行文件main，运行main即可得到四则运算结果  
+![gcc结果](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/gcc结果.png)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
