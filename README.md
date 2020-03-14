@@ -27,9 +27,9 @@
 ③运行aclocal指令生成aclocal.m4文件，获取autoconf创建configure所需的宏定义，并用autoconf命令生成configure脚本，并用autoheader命令生成config.h.in文件，如下图所示  
 ![aclocal](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/aclocal.png)  
 ④手工创建Makefile.am文件，如下图所示  
-![Makefile.am]
+![Makefile.am](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/Makefile.am.png)  
 ⑤运行automake命令生成Makefile.in文件，其中--add-missing选项可让automake自动添加必要的模板文件，生成Makefile.in文件  
-![automake]
+![automake](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/automake.png)  
 ⑥使用configure命令把Makefile.in变成最终的Makefile文件  
 ![configure](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/configure.png)  
 ⑦运行make指令，生成可执行的目标文件
@@ -39,8 +39,9 @@
 (1)gcc编译后生成可执行文件main，运行main即可得到四则运算结果  
 ![gcc结果](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/gcc结果.png)  
 (2)  
-(3)
-
+(3)运行make install后，安装程序并运行，可见执行结果相同；运行make uninstall后，程序卸载后不可执行；运行make dist后，成功生成压缩文件。结果如下图所示
+![make-install](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/make-install.png)  
+![make-dist](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/make-dist.png)  
 
 
 
