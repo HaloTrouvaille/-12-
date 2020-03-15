@@ -18,7 +18,8 @@
 (1)下载安装Ubuntu虚拟机  
 (2)编写C程序文件，主要是整数的四则运算，详细代码见实验源码  
 (3)利用gcc编译执行，结果见实验结果分析部分  
-(4)编写Makefile管理应用程序并运行，结果见实验结果分析部分  
+(4)编写Makefile管理应用程序并运行，Makefile内容如下图所示，结果见实验结果分析部分    
+![makefilelf](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/makefilelf.png)  
 (5)实验通过autotools自动生成Makefile，并完成常用的make操作，具体步骤如下，结果见实验结果分析部分  
 ①扫描目录，运行autoscan命令生成configure.scan文件，此文件夹会多出configure.scan和autoscan.log文件，如下图所示  
 ![autoscan](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/autoscan.png)  
@@ -38,10 +39,22 @@
 ### 实验结果分析
 (1)gcc编译后生成可执行文件main，运行main即可得到四则运算结果  
 ![gcc结果](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/gcc结果.png)  
-(2)  
+(2)运行make指令后生成可执行文件program，运行program得到结果如下  
+![makefileresult](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/makefileresult.png)  
 (3)运行make install后，安装程序并运行，可见执行结果相同；运行make uninstall后，程序卸载后不可执行；运行make dist后，成功生成压缩文件。结果如下图所示
 ![make-install](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/make-install.png)  
 ![make-dist](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/make-dist.png)  
+综上所述，可见利用gcc、Makefile、autotools得到的实验结果均一致。  
+## 实验总结
+### 实验收获及问题解决方案
+通过本次实验，学会了在linux操作系统下运用gcc编译运行C程序，学会了编写Makefile文件，以及如何通过autotools生成Makefile文件。在使用autotools的实验中，进行automake时出现了如下错误，即提示缺少需要的文件  
+![problem](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/add-missing.png)  
+经过查找资料，发现需要在文件夹下创建缺少的文件即可。之后便顺利完成实验。
+### 未解决的问题
+本次实验参照课程PPT及老师上课所讲内容，暂无未解决的问题
+## 实验源码
+实验源码已提交到本repo中，为main.c add.c sub.c mul.c div.c及相应的头文件
+
 
 
 
