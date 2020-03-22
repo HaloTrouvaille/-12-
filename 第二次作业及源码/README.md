@@ -36,7 +36,7 @@
 分析：从上图可见，child11向child1发送SIGINT信号，child1接收捕捉到SIGINT信号后，跳转到child1_handler函数进行处理。即通过kill函数与signal函数实现了信号的发送、捕捉与处理。  
 (4)运行server.c、client1.c、client2.c程序，得到结果如下  
 ![server](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/第二次作业及源码/图片/server.png)  
-![client1](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/第二次作业及源码/图片/client1.png)  
+![client1](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/第二次作业及源码/图片/cilent1.png)  
 ![client2](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/第二次作业及源码/图片/client2.png)  
 分析：从上图可见，server与client实现了通过有名管道通信，server与client中各自进程通过无名管道进行通信，实现了信号间通过管道通信。
 ## 实验总结
