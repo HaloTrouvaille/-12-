@@ -19,7 +19,7 @@
 ![fork代码结构](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/第二次作业及源码/图片/fork代码结构.png)  
 (2) 编写vfork()多进程程序。使用vfork()创建子进程，由于其保证子进程先于父进程运行，因此不会出现孤儿进程现象。此外本程序中与fork()相同，“孙子”进程是在创建“儿子”进程的内部创建的，因此理论上本实验所创建的“儿子”进程和“孙子”进程具有包含关系。vfork主要代码结构如下图，具体代码见本仓库vfork.c  
 ![vfork代码结构](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/第二次作业及源码/图片/vfrok代码结构.png)  
-(3) 在fork多进程程序的基础上，加入信号处理程序并在child1处加入signal函数接受信号并跳转处理([signal与kill使用方法])(https://blog.csdn.net/qq_42152681/article/details/90261295)，处理部分程序如下  
+(3) 在fork多进程程序的基础上，加入信号处理程序并在child1处加入signal函数接受信号并跳转处理([signal与kill使用方法](https://blog.csdn.net/qq_42152681/article/details/90261295))，处理部分程序如下  
 ![signal](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/第二次作业及源码/图片/signal.png)
 ### 实验结果分析
 (1)运行fork程序，结果如下  
