@@ -4,7 +4,9 @@
 ## 第一次作业
 [20200315 第一次作业](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/tree/master/第一次作业源码)
 ## 第二次作业
-[20200322 第二次作业](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/tree/master/第二次作业及源码)
+[20200322 第二次作业](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/tree/master/第二次作业及源码)  
+## 第三次作业
+[20200405 第三次作业](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/tree/master/第三次作业及源码)
 
 
 
