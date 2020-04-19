@@ -51,7 +51,7 @@ arm-linux-gnueabihf-gcc test.c -o test
 ```
 ![监听输出](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/第四次作业及源码/图片/监听输出.png)  
 尝试上述l调试指令，即打印出程序信息，结果如下图所示。  
-![打印程序](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/第四次作业及源码/图片/打印程序.png)  
+![打印程序](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/第四次作业及源码/图片/显示程序.png)  
 尝试上述b调试指令，即设置断点，调试结果如下图所示。  
 ![断点](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/第四次作业及源码/图片/断点.png)  
 尝试利用clear清除断点，直接运行到程序结束，调试结果如下图所示。  
