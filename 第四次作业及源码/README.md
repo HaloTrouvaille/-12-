@@ -57,7 +57,15 @@ arm-linux-gnueabihf-gcc test.c -o test
 尝试利用clear清除断点，直接运行到程序结束，调试结果如下图所示。  
 ![清除断点](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/第四次作业及源码/图片/清除断点.png)  
 ## 实验总结
-通过以上实验，完成了主机端与目标端的交叉编译，且通过gdb与gdbserver实现了远程调试。
+通过以上实验，完成了主机端与目标端的交叉编译，且通过gdb与gdbserver实现了远程调试。对Jetson Nano的系统及树莓派的系统有了更多理解。Jetson Nano作为NVIDIA的一款嵌入式设备，更加适合面向深度学习的应用(搭载了支持CUDA的显卡)，而树莓派作为一款较为统用的嵌入式设备，在很多方面表现都很好。二者系统也存在较大区别，Jetson Nano采用aarch64系统，对许多通用的包都不支持。在安装gdb与gdbserver过程中，遇到了许多困难，先将其及解决方法记下：  
+(1) 编译gdb时提示环境中没有C编译器。  解决方法：将安装好的交叉编译器的路径加入到PATH中，即可编译gdb。  
+(2) 编译gdbserver时，提示linux-arm-low.c缺少ptrace文件。   解决方法：在其中加入 #include <ptrace.h>  
+(3) 编译gdbserver时，提示linux-arm-low.c缺少变量__NR_sigreturn的定义。    解决方法：找到包含__NR_sigreturn的程序unistd.h，将其include即可。  
+(4) 在Jetson Nano上，通过uname -a显示操作系统版本号，发现其为aarch64的特殊系统，无法正常运行。  解决方法：按实验过程部分所说，更换为树莓派即可。  
+在本次实验中，切实体会了交叉编译的好处。在工程上十分方便，以后会多多使用。  
+## 实验源码
+见本仓库源码部分。
+
 
 
 
