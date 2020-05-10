@@ -66,15 +66,67 @@ make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- menuconfig
 ```
 make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu-  -j 8
 ```
-(7)编译完成后，与步骤4类似，将生成的内核、设备树等划分到启动分区中，使用指令如下  
+(7) 编译完成后，与步骤4类似，将生成的内核、设备树等划分到启动分区中，使用指令如下  
 ```
 sudo mount /dev/sdb1 mnt/fat32  
 sudo mount /dev/sdb2 mnt/ext4    #启动分区
 sudo cp arch/arm64/boot/Image /mnt/boot/kernelchange.img #拷贝镜像
 sudo make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- INSTALL_MOD_PATH=/mnt/ modules_install #安装内核
 sudo echo kernel=kernelchange.img >> /mnt/boot/config.txt #配置镜像
+sudo umount mnt/fat32
+sudo umount mnt/ext4  #关闭分区
 ```
-
-### 实验过程描述
-### 实验结果分析
+![rasp](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/第五次作业及源码/图片/rasp.jpg)  
+(8) 模块卸载  
+利用lsmod指令查看系统模块状态，结果如下图  
+![lsmod](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/第五次作业及源码/图片/lsmod.png)  
+卸载表中的joydev模块，所用指令如下  
+```
+sudo rmmod joydev
+```
+卸载后结果如下  
+![lsmod](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/第五次作业及源码/图片/joydev.png)  
+加载一个模块，利用如下指令
+```
+sudo insmod sha256_generic
+```
+加载模块后结果如下  
+![generic](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/第五次作业及源码/图片/generic.png)  
+可见模块加载与卸载成功。
+(9) 系统分区  
+增加分区，利用如下指令
+```
+fdisk
+```
+结果如下图所示  
+![fdisk](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/第五次作业及源码/图片/fdisk.png)  
+将剩余空间创建为扩展分区，并创建逻辑分区，结果如下  
+![kuozhan](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/第五次作业及源码/图片/kuozhan.png)  
+![kuozhann](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/第五次作业及源码/图片/kuozhann.png)  
+运行到此并没有完成分区，还需运行partprobe程序，结果如下  
+![result](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/第五次作业及源码/图片/result.png) 
+(10) 通过完成对内核裁剪与重新编译，小组开始进行预期项目。***拟打算采用已训练好的目标检测模型，将摄像头采集而来的图像进行特定的目标检测进行前向推理，并输出检测的视频帧至显示器上***。结构图如下图所示。  
+![结构图](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/第五次作业及源码/图片/structure.png)  
+(11) 安装必要的包，如opencv、numpy等，其中opencv需要源码编译安装，所用指令如下
+```
+sudo pip3 install numpy
+wget https://github.com/Itseez/opencv_contrib/archive/3.4.0.zip
+unzip opencv-3.4.0.zip
+make
+make install
+```
+(12) import导入目标检测模型YOLOv3，加载权重文件后，即可读取数据。本应通过摄像头读取内存，但购买树莓派时没有买相应的摄像头，故本此采用从内存加载图片进行检测(后续摄像头邮寄到会完善成摄像头读取视频)。此目标检测模型在遥感数据集上训练，用于检测汽车、行人等(***可用来统计车流、人流数量***)。通过如下指令读取图片
+```
+img = cv2.imread('test.jpg) #读入图片
+model = Darknet() #生成模型
+model.load_state_dict(torch.load(weight.pth))  #模型加载权重
+pred = model(img)   #预测并生成检测后的图片
+```
+运行后，得到车流人流检测结果如下图所示
+![car](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/第五次作业及源码/图片/car.png)  
+![fuza](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/第五次作业及源码/图片/fuza.png)  
+可见模型对模糊图片、复杂场景图片均具有很好的检测效果，但运行时间较长，后续可对模型进行压缩后，才能实现端侧实时检测。
 ## 实验总结
+通过本次实验对课上所学树莓派内核裁剪、模块加载卸载及构建文件系统有了更深的理解，并且通过利用硬件平台实现了目标检测任务的部署，切实体会到了深度学习在端侧的推理速度。经过这次实验感悟很深，之前都是在服务器上进行部署，这次在目标板部署后觉得模型参数需要更少才能完成在端侧的实时推理。目前深度学习很多工作也从云端转换到了目标端，所以了解树莓派这类嵌入式硬件平台十分有必要，日后一定会更加努力学习嵌入式相关知识！
+## 实验代码
+见本仓库源码部分
