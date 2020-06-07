@@ -121,4 +121,35 @@ TCP服务器端依次调用socket()、bind()、listen()函数后，就会监听�
 网络I/O操作包括如下组别：read()/write()、recv()/send()、readv()/writev()、recvmsg()/sendmsg()、recvfrom()/sendto()  
 (6) close函数  
 在服务器与客户端建立连接之后会进行读写操作，完成读写操作即关闭相应的socket描述字  
-
+按上述函数编写Server端与Client端的Socket通信程序，利用PC与树莓派进行测试。本实验对环境中温度、湿度及气味进行实时检测，结果如下  
+![socket1](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/第六次作业及源码/图片/socket1.jpg)  
+![socket2](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/第六次作业及源码/图片/socket2.jpg)  
+可见，PC与树莓派已可以进行Socket通信，并显示出环境值  
+### 交叉调试
+完成上述三个主要部分后，将如上部分整合，在树莓派端进行调试  
+(1) 利用如下指令在pc端生成调试文件，结果如下图所示  
+```
+arm-linux-gnueabihf-gcc -g server.c -o server_g -lm
+```
+![pc结果](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/第六次作业及源码/图片/pc结果.png)  
+(2) 将调试文件传至树莓派，放在gdbserver文件夹下，利用如下指令在目标端执行调试，结果如下图所示  
+```
+./gdbserver :1234 server_g
+```
+![拷贝](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/第六次作业及源码/图片/拷贝.png)  
+(3) 利用在Host端执行远程调试，结果如下图所示  
+```
+arm-linux-gnueabihf-gdb server_g
+(gdb)target remote 192.168.5.5:1234
+```
+![交叉调试](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/第六次作业及源码/图片/交叉调试.png)  
+(4) 树莓派端接受远程调试，结果如下图所示  
+![交叉调试](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/第六次作业及源码/图片/交叉调试.png)  
+(5) list后，分别在server端和client端打印输出之前设置断点，结果如下图所示  
+![设置断点](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/第六次作业及源码/图片/设置断点.png)  
+开始调试后在Host端执行client程序，此时server程序停在第一个断点之前，结果如下图所示  
+![断点结果1](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/第六次作业及源码/图片/断点结果1.png)  
+continue之后，server程序打印server端输出，之后server程序停在第二个断点之前，结果如下  
+![断点结果2](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/第六次作业及源码/图片/断点结果2.png)  
+再continue之后，server程序打印client端输出（实现APP功能），之后server程序结束，结果如下。  
+![断点结果3](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/第六次作业及源码/图片/断点结果3.png)  
