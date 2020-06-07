@@ -14,10 +14,12 @@
 (5) APP编译采用交叉编译，用gdb-gdbserver交叉调试APP。 
 ## 实验过程与结果
 整体实验框架流程如下图所示，包含Scull设备(或传感器设备)采集当前环境数据、将数据写入文件系统、树莓派端与PC端进行Socket通信传输数据。  
+![框架](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/第六次作业及源码/图片/框架.png)  
 ### Scull设备驱动安装  
 ### 数据存储至文件系统  
 ### Socket通信  
 本实验中利用Socket通信方法实现PC与树莓派通信，其通过open—write/read—close方式实现，基本流程框架如下图所示  
+![流程概况](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/第六次作业及源码/图片/流程概况.png)
 由上图Socket通信流程框架可知，其主要包括***socket()函数、bind()函数、listen()函数、connect()函数、accept()函数、read()函数、write()函数、close()函数***，在实现Socket通信时需要合理使用这些函数，函数基本使用方法如下  
 (1) socket函数  
 使用形式：int socket(int domain, int type, int protocol)  
