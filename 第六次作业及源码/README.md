@@ -153,3 +153,10 @@ continue之后，server程序打印server端输出，之后server程序停在第
 ![断点结果2](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/第六次作业及源码/图片/断点结果2.png)  
 再continue之后，server程序打印client端输出（实现APP功能），之后server程序结束，结果如下。  
 ![断点结果3](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/第六次作业及源码/图片/断点结果3.png)  
+## Jetson Nano摄像头实验
+在第五次作业中，我们将目标检测模型部署于Jetson Nano，但由于当时未购买摄像头没有采用实际场景输入。本次购买摄像头后，安装对应驱动，并对模型进行剪枝压缩后，实现对输入视频的目标检测。通过这样的实验，不仅对scull设备有了了解，也对现实传感器进行了应用。结果如下图所示。  
+![检测结果](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/第六次作业及源码/图片/检测结果.png)  
+## 实验总结
+通过本次实验，我们小组对课上所学Socket通信、多进程、多线程编程、交叉调试目标端程序、磁盘分区与文件系统创建及模块与驱动编程有了系统的认识。经过这一学期的学习，我们对嵌入式软件编程的认识更加透彻，也意识到了嵌入式的重要性。期间也遇到了些许困难，如交叉调试continuing后没反应，后来检查发现是因为程序是和client程序通信的，在调试server程序时，还需要在host端跑一下client程序才可以运行。通过本次实验对以往知识进行了充分的应用与复习，将所学知识应用于实际中，得到了锻炼。衷心感谢郭老师与助教一学期以来的付出，衷心希望《嵌入式软件开发技术与工具》这门课越来越好！！！
+## 实验代码
+见本仓库代码部分
