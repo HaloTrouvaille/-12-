@@ -16,6 +16,62 @@
 整体实验框架流程如下图所示，包含Scull设备(或传感器设备)采集当前环境数据、将数据写入文件系统、树莓派端与PC端进行Socket通信传输数据。  
 ![框架](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/第六次作业及源码/图片/框架.png)  
 ### Scull设备驱动安装  
+(1) 编写scull.c程序，详细代码可见本仓库代码部分scull.c，其代码主要包括：  
+① 编写scull设备结构体，封装设备相关的信息  
+② 确定scull设备数目及主次设备号  
+③ 编写read函数，读取设备数据至用户空间。编写write函数将用户空间的数据写入设备中  
+④ 对scull设备建立字符设备结构体  
+⑤ 编写初始化函数，获得内核试别的设备号并分配内存空间  
+(2) 编写Makefile文件，编译上述scull.c文件。主要代码如下
+```
+ifneq ($(KERNELRELEASE),)
+        obj-m:=scull.o
+else
+        KERNELDIR:=/home/cwq/raspberrypi/linux
+        PWD:=$(shell pwd)
+all:
+        $(MAKE) -C $(KERNELDIR) M=$(PWD) modules ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf-
+clean:
+        rm -f *.ko *.o *.mod.o *.mod.c *.symvers modul*
+endif
+```
+(3)编写test.c文件，使用open、read、write等内核驱动函数，主要代码如下  
+```
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <linux/fcntl.h>
+
+int main()
+{
+    int fd;
+    char buf_write[5] = "12345";
+    char buf_read[5];
+    if((fd=open("/dev/myscull_0", O_RDWR)) == -1){
+        printf("open error\n");
+        return 0;
+    }
+    printf("open ok\n");
+    write(fd, buf_write, sizeof(buf_write));
+    //llseek(fd, 0, SEEK_SET);
+    lseek(fd, 0, SEEK_SET);
+    read(fd, buf_read, 5);
+    printf("buf_read is %s\n", buf_read);
+	ioctl("/dev/myscull_0", fd);
+	//release("/dev/myscull_0", fd);
+    return 0;
+}
+```
+(4) 采用交叉编译的方式编译驱动模块，结果如下图所示。  
+![编译](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/第六次作业及源码/图片/编译.png)  
+(5) 在树莓派安装scull设备驱动，首先把交叉编译的scull.ko模块传至树莓派，进行安装；之后创建3个设备节点的设备号。执行如下指令，结果如下图所示    
+```
+sudo insmod scull.ko
+```
+![安装1](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/第六次作业及源码/图片/安装1.png)  
+![安装2](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/第六次作业及源码/图片/安装2.png)  
+(6) 测试scull设备驱动。在树莓派使用gcc编译执行(3)步骤中的测试程序，结果图如下  
+![test](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/第六次作业及源码/图片/test.png)  
 ### 数据存储至文件系统  
 ### Socket通信  
 本实验中利用Socket通信方法实现PC与树莓派通信，其通过open—write/read—close方式实现，基本流程框架如下图所示  
