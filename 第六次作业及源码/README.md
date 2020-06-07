@@ -19,6 +19,26 @@
 ### Socket通信  
 本实验中利用Socket通信方法实现PC与树莓派通信，其通过open—write/read—close方式实现，基本流程框架如下图所示  
 由上图Socket通信流程框架可知，其主要包括***socket()函数、bind()函数、listen()函数、connect()函数、accept()函数、read()函数、write()函数、close()函数***，在实现Socket通信时需要合理使用这些函数，函数基本使用方法如下  
-(1)socket函数  
+(1) socket函数  
 使用形式：int socket(int domain, int type, int protocol)  
 socket函数对应于普通文件的打开操作。普通文件的打开操作返回一个文件描述字，而socket()用于创建一个socket描述符，它唯一标识一个socket。这个socket描述字跟文件描述字一样，其作为参数来进行一些读写操作。  
+![socket](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/第六次作业及源码/图片/socket.png)  
+(2) bind函数  
+使用形式：int bind(int sockfd, const struct sockaddr addr, socklen_t addrlen)  
+bind把一个地址族中的特定地址赋给socket，如对应AF_INET、AF_INET6就是把一个ipv4或ipv6地址和端口号组合赋给socket。  
+![bind](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/第六次作业及源码/图片/bind.png)  
+(3) listen函数与connect函数  
+使用形式：int listen(int sockfd, int backlog)  
+使用形式：int connect(int sockfd, const struct sockaddr addr, socklen_t addrlen)  
+服务器在调用socket()、bind()之后就会调用listen()来监听这个socket，如果客户端这时调用connect()发出连接请求，服务器端就会接收到这个请求  
+![listen](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/第六次作业及源码/图片/listen.png)
+![connect](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/第六次作业及源码/图片/connect.png)  
+(4) accept函数  
+使用形式：int accept(int sockfd, struct sockaddr addr, socklen_t addrlen)  
+TCP服务器端依次调用socket()、bind()、listen()函数后，就会监听指定的socket地址。TCP客户端依次调用socket()、connect()函数之后就想TCP服务器发送了一个连接请求。TCP服务器监听到这个请求之后，即调用accept()函数取接收请求，连接建立成功。之后就可以read/write等网络IO操作。  
+![accept](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/第六次作业及源码/图片/accept.png)  
+(5) read函数与write函数  
+网络I/O操作包括如下组别：read()/write()、recv()/send()、readv()/writev()、recvmsg()/sendmsg()、recvfrom()/sendto()  
+(6) close函数  
+在服务器与客户端建立连接之后会进行读写操作，完成读写操作即关闭相应的socket描述字  
+
