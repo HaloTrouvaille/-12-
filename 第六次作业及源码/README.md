@@ -11,4 +11,14 @@
 (2) 要求创建2个以上的scull设备，设备驱动可选择从内核源码树外(Kbuild)编译安装，或加入到内核源码树内。驱动函数要求包括： open, release, read, write, llseek, ioctl。  
 (3) 实验中的环境数据存储在特定文件系统中。该文件系统要求具备属性：在线写入、持久性、断电可靠性。  
 (4) PC机、移动设备或另外一个树莓派用作远程客户端，随时请求获取环境数据，客户端和服务器之间采用Socket通信。  
-(5) APP编译采用交叉编译，用gdb-gdbserver交叉调试APP。   
+(5) APP编译采用交叉编译，用gdb-gdbserver交叉调试APP。 
+## 实验过程与结果
+整体实验框架流程如下图所示，包含Scull设备(或传感器设备)采集当前环境数据、将数据写入文件系统、树莓派端与PC端进行Socket通信传输数据。  
+### Scull设备驱动安装  
+### 数据存储至文件系统  
+### Socket通信  
+本实验中利用Socket通信方法实现PC与树莓派通信，其通过open—write/read—close方式实现，基本流程框架如下图所示  
+由上图Socket通信流程框架可知，其主要包括***socket()函数、bind()函数、listen()函数、connect()函数、accept()函数、read()函数、write()函数、close()函数***，在实现Socket通信时需要合理使用这些函数，函数基本使用方法如下  
+(1)socket函数  
+使用形式：int socket(int domain, int type, int protocol)  
+socket函数对应于普通文件的打开操作。普通文件的打开操作返回一个文件描述字，而socket()用于创建一个socket描述符，它唯一标识一个socket。这个socket描述字跟文件描述字一样，其作为参数来进行一些读写操作。  
