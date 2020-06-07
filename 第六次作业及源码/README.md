@@ -31,7 +31,7 @@ bind把一个地址族中的特定地址赋给socket，如对应AF_INET、AF_INE
 使用形式：int listen(int sockfd, int backlog)  
 使用形式：int connect(int sockfd, const struct sockaddr addr, socklen_t addrlen)  
 服务器在调用socket()、bind()之后就会调用listen()来监听这个socket，如果客户端这时调用connect()发出连接请求，服务器端就会接收到这个请求  
-![listen](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/第六次作业及源码/图片/listen.png)
+![listen1](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/第六次作业及源码/图片/listen.png)
 ![connect](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/第六次作业及源码/图片/connect.png)  
 (4) accept函数  
 使用形式：int accept(int sockfd, struct sockaddr addr, socklen_t addrlen)  
