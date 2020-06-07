@@ -73,6 +73,28 @@ sudo insmod scull.ko
 (6) 测试scull设备驱动。在树莓派使用gcc编译执行(3)步骤中的测试程序，结果图如下  
 ![test](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/第六次作业及源码/图片/test.png)  
 ### 数据存储至文件系统  
+(1) 利用如下指令查询分区情况，结果图如下  
+```
+sudo fdisk -l
+```
+![分区](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/第六次作业及源码/图片/分区.png)  
+之前实验中已经创建过新分区，本实验直接使用/dev/mmcblk0p5对应的Linux类型逻辑分区。  
+(2) 格式化文件系统。根据本实验需求，实验中的环境数据存储在特定文件系统中，要求具备属性:在线写入、持久性、断电可靠性，故采用如下指令安装ext3文件系统，结果图如下所示    
+```
+sudo mkfs.ext3 /dev/mmcblk0p5
+```
+![安装](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/第六次作业及源码/图片/安装.png)  
+(3) 将格式化后的分区mount到树莓派某挂载点，***注：这里需要先创建挂载点，否则会报错mount point does not exist***  
+最后验证是否mount成功，结果图如下  
+![挂载验证](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/第六次作业及源码/图片/挂载验证.png)  
+(4) 为方便日后使用，利用如下指令设置开机挂载。  
+```
+sudo vim /etc/fstab
+```
+并在/etc/fstab文件中新增如下一行
+```
+/dev/mmcblk0p5 /mnt/ext3fs ext3 defaults 0 2
+```
 ### Socket通信  
 本实验中利用Socket通信方法实现PC与树莓派通信，其通过open—write/read—close方式实现，基本流程框架如下图所示  
 ![流程概况](https://github.com/HaloTrouvaille/Embedded-Software-Group-12/blob/master/第六次作业及源码/图片/流程概况.png)
